@@ -12,5 +12,12 @@ class nfs::server::redhat inherits nfs::client::redhat {
     hasstatus => true,
     require   => Package[ 'nfs-utils' ],
   }
+  
+  @concat {'/etc/exports':
+    owner  => root,
+    group  => root,
+    mode   => '0644',
+    notify => Service['nfs'],
+  }
 
 }
